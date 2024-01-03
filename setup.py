@@ -9,7 +9,7 @@ setup(
     description='Modern theme for Django admin interface.',
     long_description=long_description,
     long_description_content_type="text/x-rst",
-    author='Kaspars Sprogis (darklow), forked by @mhindery',
+    author='Kaspars Sprogis (darklow), forked by @mhindery, forked by @cbporch',
     author_email='info@djangosuit.com',
     url='http://djangosuit.com',
     packages=['suit', 'suit.templatetags'],
