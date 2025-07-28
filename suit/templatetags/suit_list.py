@@ -1,5 +1,5 @@
 from copy import copy
-from inspect import getargspec
+from inspect import signature
 
 import django
 
@@ -241,7 +241,7 @@ def dict_to_attrs(attrs):
 @register.inclusion_tag('admin/change_list_results.html', takes_context=True)
 def result_list_with_context(context, cl):
     """
-    Wraps Djangos default result_list to ammend the context with the request.
+    Wraps Django's default result_list to amend the context with the request.
 
     This gives us access to the request in change_list_results.
     """
@@ -266,8 +266,8 @@ def result_row_attrs(context, cl, row_index):
     instance = cl.result_list[row_index]
 
     # Backwards compatibility for suit_row_attributes without request argument
-    args = getargspec(suit_row_attributes)
-    if 'request' in args[0]:
+    sig = signature(suit_row_attributes)
+    if 'request' in sig.parameters:
         new_attrs = suit_row_attributes(instance, context['request'])
     else:
         new_attrs = suit_row_attributes(instance)
