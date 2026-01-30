@@ -2,7 +2,7 @@
 Project status
 ===========
 
-This is a fork of the unmaintaned upstream `django-suit <https://github.com/darklow/django-suit>`_ project. The `develop` branch is compatible with the latest Django versions, other branches were left as-is on the moment of forking.
+This is a fork of the unmaintained upstream `django-suit <https://github.com/darklow/django-suit>`_ project. The `develop` branch is compatible with the latest Django versions, other branches were left as-is on the moment of forking.
 
 Install this using pip and direct github, it is not published on pypi as separate package currently:
 

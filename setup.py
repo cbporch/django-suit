@@ -14,7 +14,7 @@ setup(
     url='http://djangosuit.com',
     packages=['suit', 'suit.templatetags'],
     install_requires=[
-        'Django>=3.2,<5',
+        'Django>=3.2,<6',
     ],
     zip_safe=False,
     include_package_data=True,
@@ -30,6 +30,9 @@ setup(
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: 3.10',
+        'Programming Language :: Python :: 3.11',
+        'Programming Language :: Python :: 3.12',
+        'Programming Language :: Python :: 3.13',
         'Environment :: Web Environment',
         'Topic :: Software Development',
         'Topic :: Software Development :: User Interfaces',
