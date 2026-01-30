@@ -1,16 +1,13 @@
 from django.contrib.admin import ModelAdmin
 from django.contrib.admin.templatetags.admin_list import result_list
-from suit.templatetags.suit_list import paginator_number, paginator_info, \
-    pagination, suit_list_filter_select, headers_handler, dict_to_attrs, \
-    result_row_attrs, cells_handler
-from suit.tests.mixins import UserTestCaseMixin, ModelsTestCaseMixin
-from suit.tests.models import Album, Book, test_app_label
+from django.urls import reverse
 
-try:
-    from django.core.urlresolvers import reverse
-except ImportError:
-    # For Django >= 2.0
-    from django.urls import reverse
+from suit.templatetags.suit_list import (
+    cells_handler, dict_to_attrs, headers_handler, pagination, paginator_info,
+    paginator_number, result_row_attrs, suit_list_filter_select,
+)
+from suit.tests.mixins import ModelsTestCaseMixin, UserTestCaseMixin
+from suit.tests.models import Album, Book, test_app_label
 
 app_label = test_app_label()
 
@@ -47,11 +44,11 @@ class SuitListTestCase(UserTestCaseMixin, ModelsTestCaseMixin):
         output = paginator_number(self.changelist, 100)
         self.assertTrue('100' in output)
 
-        output = paginator_number(self.changelist, '.')
+        output = paginator_number(self.changelist, '...')
         self.assertTrue('...' in output)
 
-        output = paginator_number(self.changelist, 0)
-        self.assertTrue('active' in output)
+        output = paginator_number(self.changelist, 1)
+        self.assertTrue('this-page' in output)
 
     def test_paginator_info(self):
         output = paginator_info(self.changelist)
@@ -74,7 +71,7 @@ class SuitListTestCase(UserTestCaseMixin, ModelsTestCaseMixin):
         pg = pagination(self.changelist)
         ModelAdmin.list_per_page = per_page_original
         self.assertEqual(pg['cl'], self.changelist)
-        self.assertEqual(len(pg['page_range']), 2)
+        self.assertEqual(len(list(pg['page_range'])), 2)
         self.assertEqual(pg['pagination_required'], True)
 
     def test_suit_list_filter_select(self):

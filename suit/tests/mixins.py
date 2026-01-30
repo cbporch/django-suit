@@ -13,11 +13,8 @@ try:
 except AttributeError:
     pass
 
-try:
-    from django.core.urlresolvers import reverse
-except ImportError:
-    # For Django >= 2.0
-    from django.urls import reverse
+# For Django >= 2.0
+from django.urls import reverse
 
 
 class UserTestCaseMixin(TestCase):
@@ -60,12 +57,6 @@ class ModelsTestCaseMixin(TestCase):
         )
         settings.DEBUG = True
 
-        # Legacy Django < 1.9: load our fake application and syncdb
-        try:
-            from django.db.models.loading import load_app
-            load_app(test_app)
-        except ImportError:
-            pass
         try:
             call_command('syncdb', verbosity=0, interactive=False)
         except CommandError:
