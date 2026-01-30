@@ -10,7 +10,7 @@ from django.contrib.admin.templatetags.admin_list import result_list
 from django.contrib.admin.views.main import ALL_VAR, PAGE_VAR
 from django.utils.html import escape
 from django.utils.html import format_html
-from suit.compat import tpl_context_class
+
 
 # Starting with Django 3.2, the pagination is 1-based instead of 0-based.
 # I've taken the implementations (latest at the time of release 3.2) from https://github.com/django/django/blob/main/django/contrib/admin/templatetags/admin_list.py
@@ -18,19 +18,7 @@ from suit.compat import tpl_context_class
 # There are corresponding CSS changes in suit/static/suit/less/ui/pagination.less to fix the pagination, as the code below generates different html objects.
 USE_NEW_DJANGO_ADMIN_PAGINATION = django.get_version() >= '3.2'
 
-try:
-    # Python 3.
-    from urllib.parse import parse_qs
-except ImportError:
-    # Python 2.5+
-    from urlparse import urlparse
-
-    try:
-        # Python 2.6+
-        from urlparse import parse_qs
-    except ImportError:
-        # Python <=2.5
-        from cgi import parse_qs
+from urllib.parse import parse_qs
 
 register = template.Library()
 
@@ -202,12 +190,12 @@ def suit_list_filter_select(cl, spec):
                 choice['additional'] = '%s=%s' % (key, value)
             i += 1
 
-    return tpl.render(tpl_context_class({
+    return tpl.render({
         'field_name': field_key,
         'title': spec.title,
         'choices': choices,
         'spec': spec,
-    }))
+    })
 
 
 @register.filter
