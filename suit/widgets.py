@@ -118,10 +118,7 @@ class SuitDateWidget(AdminDateWidget):
         super(SuitDateWidget, self).__init__(attrs=new_attrs, format=format)
 
     def render(self, name, value, attrs=None, renderer=None):
-        if django_version < (1, 11):
-            output = super(SuitDateWidget, self).render(name, value, attrs)
-        else:
-            output = super(SuitDateWidget, self).render(name, value, attrs, renderer)
+        output = super(SuitDateWidget, self).render(name, value, attrs, renderer)
         return mark_safe(
             '<div class="input-append suit-date">%s<span '
             'class="add-on"><i class="icon-calendar"></i></span></div>' %
@@ -154,14 +151,9 @@ class SuitSplitDateTimeWidget(forms.SplitDateTimeWidget):
         widgets = [SuitDateWidget, SuitTimeWidget]
         forms.MultiWidget.__init__(self, widgets, attrs)
 
-    if django_version < (1, 11):
-        def format_output(self, rendered_widgets):
-            out_tpl = '<div class="datetime">%s %s</div>'
-            return mark_safe(out_tpl % (rendered_widgets[0], rendered_widgets[1]))
-    else:
-        def render(self, name, value, attrs=None, renderer=None):
-            output = super(SuitSplitDateTimeWidget, self).render(name, value, attrs, renderer)
-            return mark_safe('<div class="datetime">%s</div>' % output)
+    def render(self, name, value, attrs=None, renderer=None):
+        output = super(SuitSplitDateTimeWidget, self).render(name, value, attrs, renderer)
+        return mark_safe('<div class="datetime">%s</div>' % output)
 
 
 def _make_attrs(attrs, defaults=None, classes=None):

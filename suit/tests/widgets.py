@@ -72,12 +72,7 @@ class WidgetsTestCase(TestCase):
         self.assertEqual('p', sdw.attrs['placeholder'])
 
     def get_SuitDateWidget_output(self):
-        if django_version < (1, 11):
-            return '<div class="input-append suit-date"><input class="vDateField ' \
-                   'input-small " name="sdw" placeholder="Date" ' \
-                   'size="10" type="text" /><span class="add-on"><i ' \
-                   'class="icon-calendar"></i></span></div>'
-        elif django_version < (5, 0):
+        if django_version < (5, 0):
             return '<div class="input-append suit-date"><input type="text" name="sdw" ' \
                    'value="" class="vDateField input-small " size="10" placeholder="Date" />' \
                    '<span class="add-on"><i class="icon-calendar"></i></span></div>'
@@ -109,12 +104,7 @@ class WidgetsTestCase(TestCase):
         self.assertEqual('p', sdw.attrs['placeholder'])
 
     def get_SuitTimeWidget_output(self):
-        if django_version < (1, 11):
-            return '<div class="input-append suit-date suit-time"><input ' \
-                   'class="vTimeField input-small " name="sdw" ' \
-                   'placeholder="Time" size="8" type="text" /><span ' \
-                   'class="add-on"><i class="icon-time"></i></span></div>'
-        elif django_version < (5, 0):
+        if django_version < (5, 0):
             return '<div class="input-append suit-date suit-time"><input ' \
                    'type="text" name="sdw" value="" class="vTimeField input-small " ' \
                    'size="8" placeholder="Time" /><span class="add-on">' \
@@ -135,11 +125,7 @@ class WidgetsTestCase(TestCase):
         )
 
     def get_SuitSplitDateTimeWidget_output(self):
-        if django_version < (1, 11):
-            dwo = self.get_SuitDateWidget_output().replace('sdw', 'sdw_0')
-            two = self.get_SuitTimeWidget_output().replace('sdw', 'sdw_1')
-            return '<div class="datetime">%s %s</div>' % (dwo, two)
-        elif django_version < (5, 0):
+        if django_version < (5, 0):
             return '<div class="datetime"><input type="text" name="sdw_0" ' \
                    'class="vDateField input-small " size="10" placeholder="Date" ' \
                    '/><input type="text" name="sdw_1" class="vTimeField input-small " ' \
